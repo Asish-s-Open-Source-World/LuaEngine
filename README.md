@@ -1,17 +1,17 @@
 # LuaEngine 🎉
 
-![1720190162326](image/README/1720190162326.png)
+![LuaEngine Logo](image/README/1720190162326.png)
 
 **LuaEngine** is a powerful, lightweight, and flexible Arduino library designed to integrate the Lua scripting language with different platforms. This library enables you to run Lua scripts directly from SPIFFS and ensures efficient execution with built-in garbage collection. It is ideal for running independent light scripts using the Lua programming language.
 
 ## ✨ Features
 
-- Currently Supported microcontroller platform : Esp32
-- Lua Supported Version : 5.4.4
+- Currently Supported Microcontroller Platform: ESP32
+- Lua Supported Version: 5.4.4
 - Independent FreeRTOS task created for running Lua Interpreter
-- Executing the Lua Script from SPIFFS
-- Added some Inbuilt Arduino functions of delay(), millis() etc.
-- Added Garbage collector internal function.
+- Execute Lua Scripts from SPIFFS
+- Includes built-in Arduino functions such as `delay()`, `millis()`, etc.
+- Integrated Garbage Collector function
 
 ## 📚 Table of Contents
 
@@ -41,27 +41,24 @@ lib_deps =
 
 ### Instructions
 
-1. Flash the "MainScript.lua" & "FuncScript.lua" in the SPIFFS.
-2. Use the partition which supports SPIFFS
-3. FuncScript.lua = Include the Lua functions
-4. MainScript.lua = Include the main script & function calls
+1. Flash the `MainScript.lua` & `FuncScript.lua` to the SPIFFS.
+2. Use a partition that supports SPIFFS.
+3. `FuncScript.lua`: Contains the Lua functions.
+4. `MainScript.lua`: Contains the main script and function calls.
 
-### Lua Script
+### Lua Scripts
 
 #### MainScript.lua
 
-The MainScript.lua Include the main script & function calls
+Includes the main script and function calls.
 
 ```lua
 -- Initializations of equipment
 do
-
     print("Lua Execution Started")
-
 end
 
 while true do
-
     print("Executing the scripts...")
 
     local n = 5
@@ -73,11 +70,9 @@ while true do
 end
 ```
 
-
 #### FuncScript.lua
 
-The FuncScript.lua Include the Lua functions.
-
+Includes the Lua functions.
 
 ```lua
 -- Lua function to calculate the factorial of a number
@@ -90,22 +85,20 @@ function factorial(n)
 end
 ```
 
-
 ### Setup
 
 Include the LuaEngine library and initialize it in your project:
 
 ```cpp
 #include <Arduino.h>
-#include <LuaEngine_Lib.h>
-#include <SPIFFSConfig_Lib.h>
+#include <LuaEngine/LuaEngine_Lib.h>
+#include <SPIFFSConfig/SPIFFSConfig_Lib.h>
 
 // Create instances of SPIFFS_Config and LuaEngine classes
 SPIFFS_Config SP_CNF;
 LuaEngine LE;
 
 void setup() {
-
     Serial.begin(115200);
 
     SP_CNF.SPIFFS_begin(); // Initialize SPIFFS (SPI Flash File System)
@@ -115,40 +108,31 @@ void setup() {
   
     // Check if the Lua engine initialization was successful
     if (LE.LE_ERC != NO_ERROR)
-        Serial.printf("\nFailed to initialize Lua engine: %u", LE.LE_ERC);  // If there was an error, print the error code
-  
+        Serial.printf("\nFailed to initialize Lua engine: %u", LE.LE_ERC); // If there was an error, print the error code
     else
-        Serial.print("\nSuccessfully initialized Lua engine");  // If initialization was successful, print a success message
+        Serial.print("\nSuccessfully initialized Lua engine"); // If initialization was successful, print a success message
 }
 
 // Loop function
 void loop() {
-  
     Serial.print("\nIn loop");
-    Serial.print("\nHeap=");   Serial.print(ESP.getFreeHeap()); // Print the current free heap memory
-    Serial.println()
+    Serial.print("\nHeap="); Serial.print(ESP.getFreeHeap()); // Print the current free heap memory
     delay(2000);
 }
 ```
 
-### Example Lua Script (`example.lua`)
-
-```lua
-print("Hello from Lua!")
-```
-
 ## 📖 API Reference
 
-
+(Include detailed API references here, if available.)
 
 ## 🤝 Contributing
 
 We welcome contributions from the community! Whether it's bug reports, feature requests, or pull requests, your input is valuable.
 
 1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -m 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
+2. Create a new branch.
+3. Make your changes and commit them .
+4. Push to the branch.
 5. Open a Pull Request.
 
 ## 📜 License
