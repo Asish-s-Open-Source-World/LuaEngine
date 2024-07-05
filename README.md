@@ -7,6 +7,7 @@
 ## ✨ Features
 
 - Currently Supported Microcontroller Platform: ESP32
+- Supported Platform versions : espressif32 @6.3.1 & arduino-esp32 @2.0.9.
 - Lua Supported Version: 5.4.4
 - Independent FreeRTOS task created for running Lua Interpreter
 - Execute Lua Scripts from SPIFFS
@@ -85,7 +86,7 @@ function factorial(n)
 end
 ```
 
-### Setup
+#### Setup
 
 Include the LuaEngine library and initialize it in your project:
 
@@ -120,6 +121,36 @@ void loop() {
     delay(2000);
 }
 ```
+
+#### Outputs
+
+> rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+> configsip: 0, SPIWP:0xee
+> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+> mode:DIO, clock div:2
+> load:0x3fff0030,len:1184
+> load:0x40078000,len:13192
+> load:0x40080400,len:3028
+> entry 0x400805e4
+> E (337) esp_core_dump_flash: Incorre�~@size of core dump image: 270577936
+> SPIFFS mount successful
+> Listing directory structure from: /
+>         FILE: FuncScript.lua, SIZE: 176
+>         FILE: MainScript.lua, SIZE: 297
+
+> Successfully initialized Lua engine
+> In loop
+> Heap=320016Lua Execution Started
+> Executing the scripts...
+> Factorial of 5 : 120
+
+> In loop
+> Heap=308388Executing the scripts...
+> Factorial of 5 : 120
+
+> In loop
+> Heap=308388Executing the scripts...
+> Factorial of 5 : 120
 
 ## 📖 API Reference
 
