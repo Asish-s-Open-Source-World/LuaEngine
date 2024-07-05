@@ -8,7 +8,7 @@
 
 - Currently Supported microcontroller platform : Esp32
 - Lua Supported Version : 5.4.4
-- Independent FreeRTOS task created for Lua Interpreter
+- Independent FreeRTOS task created for running Lua Interpreter
 - Executing the Lua Script from SPIFFS
 - Added some Inbuilt Arduino functions of delay(), millis() etc.
 - Added Garbage collector internal function.
@@ -18,7 +18,6 @@
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [API Reference](#api-reference)
-- [Examples](#examples)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -30,7 +29,7 @@ Add the following to your `platformio.ini`:
 
 ```ini
 lib_deps = 
-    https://github.com/yourusername/LuaEngine.git
+    https://github.com/Asish-s-Open-Source-World/LuaEngine.git
 ```
 
 ### Manual Installation
@@ -40,24 +39,95 @@ lib_deps =
 
 ## 🛠️ Basic Usage
 
+### Instructions
+
+1. Flash the "MainScript.lua" & "FuncScript.lua" in the SPIFFS.
+2. Use the partition which supports SPIFFS
+3. FuncScript.lua = Include the Lua functions
+4. MainScript.lua = Include the main script & function calls
+
+### Lua Script
+
+#### MainScript.lua
+
+The MainScript.lua Include the main script & function calls
+
+```lua
+-- Initializations of equipment
+do
+
+    print("Lua Execution Started")
+
+end
+
+while true do
+
+    print("Executing the scripts...")
+
+    local n = 5
+    print("Factorial of "..n.." : "..factorial(n))
+
+    Grb_collect() -- Garbage collector
+
+    delay(2000) -- delay of 2 seconds
+end
+```
+
+
+#### FuncScript.lua
+
+The FuncScript.lua Include the Lua functions.
+
+
+```lua
+-- Lua function to calculate the factorial of a number
+function factorial(n)
+    if n == 0 then
+        return 1
+    else
+        return n * factorial(n - 1)
+    end
+end
+```
+
+
 ### Setup
 
 Include the LuaEngine library and initialize it in your project:
 
 ```cpp
 #include <Arduino.h>
-#include <LuaEngine.h>
+#include <LuaEngine_Lib.h>
+#include <SPIFFSConfig_Lib.h>
 
-LuaEngine luaEngine;
+// Create instances of SPIFFS_Config and LuaEngine classes
+SPIFFS_Config SP_CNF;
+LuaEngine LE;
 
 void setup() {
+
     Serial.begin(115200);
-    luaEngine.begin();
-    luaEngine.runScript("/example.lua");
+
+    SP_CNF.SPIFFS_begin(); // Initialize SPIFFS (SPI Flash File System)
+    SP_CNF.ListDir("/"); // List all files in the root directory of SPIFFS
+
+    LE.Lua_TaskAndBuffInit(1); // Initialize Lua task and buffer
+  
+    // Check if the Lua engine initialization was successful
+    if (LE.LE_ERC != NO_ERROR)
+        Serial.printf("\nFailed to initialize Lua engine: %u", LE.LE_ERC);  // If there was an error, print the error code
+  
+    else
+        Serial.print("\nSuccessfully initialized Lua engine");  // If initialization was successful, print a success message
 }
 
+// Loop function
 void loop() {
-    // Your main code
+  
+    Serial.print("\nIn loop");
+    Serial.print("\nHeap=");   Serial.print(ESP.getFreeHeap()); // Print the current free heap memory
+    Serial.println()
+    delay(2000);
 }
 ```
 
@@ -69,62 +139,7 @@ print("Hello from Lua!")
 
 ## 📖 API Reference
 
-### LuaEngine
 
-#### Constructor & Destructor
-
-- `LuaEngine()`: Initializes a new Lua engine instance.
-- `~LuaEngine()`: Cleans up the Lua engine instance.
-
-#### Methods
-
-- `void begin()`: Initializes the SPIFFS file system.
-- `void runScript(const char* filename)`: Executes a Lua script from the SPIFFS.
-- `void gc()`: Runs the Lua garbage collector to free up memory.
-- `void uploadFile(const char* path, const uint8_t* data, size_t size)`: Uploads a file to the SPIFFS.
-- `void deleteFile(const char* path)`: Deletes a file from the SPIFFS.
-
-## 💡 Examples
-
-### Running a Lua Script
-
-```cpp
-void setup() {
-    Serial.begin(115200);
-    luaEngine.begin();
-    luaEngine.runScript("/hello.lua");
-}
-
-void loop() {
-    // Your main code
-}
-```
-
-#### `hello.lua`
-
-```lua
-print("Hello from Lua!")
-```
-
-### Remote File Management
-
-```cpp
-void uploadExampleFile() {
-    const char* content = "print('Uploaded via SPIFFS')";
-    luaEngine.uploadFile("/upload.lua", (uint8_t*)content, strlen(content));
-}
-
-void setup() {
-    Serial.begin(115200);
-    luaEngine.begin();
-    uploadExampleFile();
-    luaEngine.runScript("/upload.lua");
-}
-
-void loop() {
-    // Your main code
-}
-```
 
 ## 🤝 Contributing
 
