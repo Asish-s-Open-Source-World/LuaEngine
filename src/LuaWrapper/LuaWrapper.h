@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 // #define LUA_USE_C89
-#include "lua.hpp"
+#include "LuaWrapper\lua\src\lua.hpp"
 
 /**
  * @brief Wrap Lua library for executing scripts

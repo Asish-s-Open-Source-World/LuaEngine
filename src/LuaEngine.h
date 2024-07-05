@@ -4,7 +4,7 @@
 
 #include <Arduino.h>
 #include <atomic>
-#include <LuaWrapper.h>
+#include "LuaWrapper/LuaWrapper.h"
 #include <ArduinoJson.h>
 #include <Preferences.h>
 #include "SPIFFS.h"

@@ -1,4 +1,4 @@
-#include "LuaWrapper.h"
+#include "LuaWrapper/LuaWrapper.h"
 
 /**
  * @brief Start a new Lua virtual machine
