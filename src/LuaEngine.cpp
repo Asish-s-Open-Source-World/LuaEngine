@@ -1,4 +1,4 @@
-#include "LuaEngine_Lib.h"
+#include "LuaEngine.h"
 
 // Initialize static data members
 //Inp_Out *LuaEngine::IO;

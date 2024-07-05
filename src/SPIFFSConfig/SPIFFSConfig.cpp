@@ -1,4 +1,4 @@
-#include "SPIFFSConfig_Lib.h"
+#include "SPIFFSConfig.h"
 
 /**
  * @brief Open a file from SPIFFS partition
