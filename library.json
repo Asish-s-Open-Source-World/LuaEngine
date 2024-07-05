@@ -1,0 +1,28 @@
+{
+    "name": "LuaEngine",
+    "version": "1.0.0",
+    "description": "LuaEngine is a powerful and flexible Arduino library designed to integrate the Lua scripting language with the Microcontroller platform.",
+    "keywords": [
+      "lua",
+      "scripting",
+      "SPIFFS",
+      "LuaEngine",
+      "Lua Script"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Asish-s-Open-Source-World/LuaEngine.git"
+    },
+    "authors": [
+      {
+        "name": "Asish Johney",
+        "email": "asishjohneylr@gmail.com",
+        "url": "https://github.com/asishjohney",
+        "maintainer": true
+      }
+    ],
+    "license": "MIT",
+    "frameworks": "arduino",
+    "platforms": "espressif32"
+  }
+  
