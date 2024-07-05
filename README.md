@@ -1,8 +1,6 @@
 # LuaEngine 🎉
 
-
-![1720165041413](image/README/1720165041413.png)
-
+![1720190162326](image/README/1720190162326.png)
 
 **LuaEngine** is a powerful, lightweight, and flexible Arduino library designed to integrate the Lua scripting language with different platforms. This library enables you to run Lua scripts directly from SPIFFS and ensures efficient execution with built-in garbage collection. It is ideal for running independent light scripts using the Lua programming language.
 
